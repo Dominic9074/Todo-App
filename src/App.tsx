@@ -5,7 +5,7 @@ function App() {
   return(
     <>
       <Background />
-      <h2>TODO APP</h2>
+      <h2 className='MainHeading share-tech-regular' >TODO APP</h2>
     </>
   )
 }
