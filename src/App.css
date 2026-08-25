@@ -5,4 +5,8 @@
   margin-left: 40%;
 }
 
-
+.TaskLists{
+  margin-top: 50px;
+  margin-left: 50px;
+  gap: 50px;
+}

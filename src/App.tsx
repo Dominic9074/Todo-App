@@ -1,11 +1,17 @@
 import './App.css'
 import DotGrid from './components/background/DotGrid.tsx'
+import TaskForm from './components/todo/taskForm.tsx';
+import TaskList from './components/todo/taskList.tsx';
 
 function App() {
   return(
     <>
       <Background />
       <h2 className='MainHeading share-tech-regular' >TODO APP</h2>
+      <TaskForm />
+      <div className='TaskLists'>
+        <TaskList />
+      </div>
     </>
   )
 }
