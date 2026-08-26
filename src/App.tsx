@@ -3,16 +3,24 @@ import DotGrid from './components/background/DotGrid.tsx'
 import TaskForm from './components/todo/taskForm.tsx';
 import TaskList from './components/todo/taskList.tsx';
 import type{ TaskInterface } from './types/task.interface.ts';
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 
 function App() {
 
-  const [task,setTask]=useState<TaskInterface[]>([])
+  const [task,setTask]=useState<TaskInterface[]>(()=>{
+    const savedTask=localStorage.getItem('tasks');
+
+    return savedTask? JSON.parse(savedTask) : [];
+  })
 
   function addTask(title:string,deadline:string){
     console.log('task added',{title,deadline})
     setTask((prevTask)=>[...prevTask,{title,deadline}])
   }
+
+  useEffect(()=>{
+    localStorage.setItem('tasks',JSON.stringify(task))
+  },[task])
 
   return(
     <>
@@ -20,7 +28,7 @@ function App() {
       <h2 className='MainHeading share-tech-regular' >TODO APP</h2>
       <TaskForm addTask={addTask} />
       <div className='TaskLists'>
-        <TaskList task={task} />
+        <TaskList tasks={task} />
       </div>
     </>
   )

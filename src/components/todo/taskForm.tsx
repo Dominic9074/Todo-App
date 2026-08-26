@@ -10,7 +10,13 @@ function TaskForm({addTask}:TaskFormProps){
     const [deadline,setDeadline]=useState<string>('')
 
     function handleAddBtn(){
-        console.log(title,deadline)
+        if(title.trim().length<4){
+            console.log('enter a valid todo')
+            return;
+        }
+        if(deadline.length < 4){
+            console.log('choose a valid date')
+        }
         addTask(title,deadline)
     }
 
@@ -19,7 +25,7 @@ function TaskForm({addTask}:TaskFormProps){
         <input  type="text"  className="taskform__input"  placeholder="What needs to be done?" 
         onChange={(e)=>setTitle(e.target.value)}/>
         <input 
-            type="date" className="taskform__date" onChange={(e) => setDeadline(e.target.value)}
+            type="date" className="taskform__date" onChange={(e) => setDeadline(e.target.value)} min={new Date().toISOString().split('T')[0]}
         />
         <button type="button" className="taskform__btn" onClick={handleAddBtn}>
             Add
