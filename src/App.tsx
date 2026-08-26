@@ -2,15 +2,25 @@ import './App.css'
 import DotGrid from './components/background/DotGrid.tsx'
 import TaskForm from './components/todo/taskForm.tsx';
 import TaskList from './components/todo/taskList.tsx';
+import type{ TaskInterface } from './types/task.interface.ts';
+import { useState } from 'react';
 
 function App() {
+
+  const [task,setTask]=useState<TaskInterface[]>([])
+
+  function addTask(title:string,deadline:string){
+    console.log('task added',{title,deadline})
+    setTask((prevTask)=>[...prevTask,{title,deadline}])
+  }
+
   return(
     <>
       <Background />
       <h2 className='MainHeading share-tech-regular' >TODO APP</h2>
-      <TaskForm />
+      <TaskForm addTask={addTask} />
       <div className='TaskLists'>
-        <TaskList />
+        <TaskList task={task} />
       </div>
     </>
   )

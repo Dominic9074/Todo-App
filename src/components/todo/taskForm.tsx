@@ -1,21 +1,30 @@
 import './task.css'
+import { useState } from 'react';
 
-function TaskForm(){
+interface TaskFormProps{
+    addTask(title:string,deadline:string):void;
+}
+
+function TaskForm({addTask}:TaskFormProps){
+    const [title,setTitle]=useState<string>('');
+    const [deadline,setDeadline]=useState<string>('')
+
+    function handleAddBtn(){
+        console.log(title,deadline)
+        addTask(title,deadline)
+    }
+
     return (
         <div className="taskform">
-      <input 
-        type="text" 
-        className="taskform__input" 
-        placeholder="What needs to be done?" 
-      />
-      <input 
-        type="date" 
-        className="taskform__date" 
-      />
-      <button type="button" className="taskform__btn">
-        Add
-      </button>
-    </div>
+        <input  type="text"  className="taskform__input"  placeholder="What needs to be done?" 
+        onChange={(e)=>setTitle(e.target.value)}/>
+        <input 
+            type="date" className="taskform__date" onChange={(e) => setDeadline(e.target.value)}
+        />
+        <button type="button" className="taskform__btn" onClick={handleAddBtn}>
+            Add
+        </button>
+        </div>
     )
 }
 
