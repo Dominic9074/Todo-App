@@ -38,6 +38,13 @@ function App() {
     setEditTask(null);
   }
 
+  function UpdateTask(updatedTask:TaskInterface){
+    setTask(prevTask=>prevTask.map((task)=>
+    task.id === updatedTask.id ? updatedTask : task
+    ))
+    setIsEditable(false)
+  }
+
   useEffect(()=>{
     localStorage.setItem('tasks',JSON.stringify(task))
   },[task])
@@ -60,7 +67,7 @@ function App() {
       <div className='TaskLists'>
         <TaskList tasks={task} deleteTask={deleteTask} EditTaskBtn={EditTaskBtn}/>
       </div>
-      {isEditable?(<EditTaskModel EditTask={editTask} EditCancelBtn={EditCancelBtn} />):null}
+      {isEditable?(<EditTaskModel EditTask={editTask} EditCancelBtn={EditCancelBtn} UpdateTask={UpdateTask} />):null}
     </>
   )
 }
