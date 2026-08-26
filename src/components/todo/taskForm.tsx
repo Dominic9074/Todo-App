@@ -1,5 +1,7 @@
+import toast from 'react-hot-toast';
 import './task.css'
 import { useState } from 'react';
+
 
 interface TaskFormProps{
     addTask(title:string,deadline:string):void;
@@ -11,11 +13,12 @@ function TaskForm({addTask}:TaskFormProps){
 
     function handleAddBtn(){
         if(title.trim().length<4){
-            console.log('enter a valid todo')
+            toast.error('Enter a valid Todo')
             return;
         }
         if(deadline.length < 4){
-            console.log('choose a valid date')
+           toast.error('Choose a valid date')
+           return;
         }
         addTask(title,deadline)
     }

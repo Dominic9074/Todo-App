@@ -4,6 +4,8 @@ import TaskForm from './components/todo/taskForm.tsx';
 import TaskList from './components/todo/taskList.tsx';
 import type{ TaskInterface } from './types/task.interface.ts';
 import { useState,useEffect } from 'react';
+import {Toaster} from 'react-hot-toast'
+
 
 function App() {
 
@@ -15,7 +17,11 @@ function App() {
 
   function addTask(title:string,deadline:string){
     console.log('task added',{title,deadline})
-    setTask((prevTask)=>[...prevTask,{title,deadline}])
+    setTask((prevTask)=>[...prevTask,{id:crypto.randomUUID(),title,deadline}])
+  }
+
+  function deleteTask(taskId:string){
+    setTask((prevTask)=>prevTask.filter((task)=>task.id!==taskId))
   }
 
   useEffect(()=>{
@@ -24,11 +30,21 @@ function App() {
 
   return(
     <>
+      <Toaster 
+        position="top-right" 
+        toastOptions={{
+          style: {
+            background: '#1f1e24',
+            color: '#fff',
+            border: '1px solid rgba(255, 255, 255, 0.1)',
+          }
+        }} 
+      />
       <Background />
       <h2 className='MainHeading share-tech-regular' >TODO APP</h2>
       <TaskForm addTask={addTask} />
       <div className='TaskLists'>
-        <TaskList tasks={task} />
+        <TaskList tasks={task} deleteTask={deleteTask}/>
       </div>
     </>
   )

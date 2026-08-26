@@ -4,13 +4,14 @@ import TaskItem from './taskitem'
 
 interface TaskListProps{
     tasks:TaskInterface[];
+    deleteTask(taskId:string):void;
 }
 
-function TaskList({tasks}:TaskListProps){
+function TaskList({tasks,deleteTask}:TaskListProps){
     return (
         <>
         {tasks.map((task)=>(
-            <TaskItem title={task.title} deadline={task.deadline} />
+            <TaskItem id={task.id} title={task.title} deadline={task.deadline} deleteTask={()=>deleteTask(task.id)} />
         ))}
         </>
     )
