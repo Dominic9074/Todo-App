@@ -1,5 +1,6 @@
 import './App.css'
 import DotGrid from './components/background/DotGrid.tsx'
+import EditTaskModel from './components/todo/EditTaskModel.tsx';
 import TaskForm from './components/todo/taskForm.tsx';
 import TaskList from './components/todo/taskList.tsx';
 import type{ TaskInterface } from './types/task.interface.ts';
@@ -15,6 +16,9 @@ function App() {
     return savedTask? JSON.parse(savedTask) : [];
   })
 
+  const [isEditable,setIsEditable]=useState<boolean>(false)
+  const [editTask,setEditTask]=useState<TaskInterface | null>(null)
+
   function addTask(title:string,deadline:string){
     console.log('task added',{title,deadline})
     setTask((prevTask)=>[...prevTask,{id:crypto.randomUUID(),title,deadline}])
@@ -22,6 +26,16 @@ function App() {
 
   function deleteTask(taskId:string){
     setTask((prevTask)=>prevTask.filter((task)=>task.id!==taskId))
+  }
+
+  function EditTaskBtn({id,title,deadline}:TaskInterface){
+    setIsEditable(true);
+    setEditTask({id,title,deadline})
+  }
+
+  function EditCancelBtn(){
+    setIsEditable(false);
+    setEditTask(null);
   }
 
   useEffect(()=>{
@@ -44,8 +58,9 @@ function App() {
       <h2 className='MainHeading share-tech-regular' >TODO APP</h2>
       <TaskForm addTask={addTask} />
       <div className='TaskLists'>
-        <TaskList tasks={task} deleteTask={deleteTask}/>
+        <TaskList tasks={task} deleteTask={deleteTask} EditTaskBtn={EditTaskBtn}/>
       </div>
+      {isEditable?(<EditTaskModel EditTask={editTask} EditCancelBtn={EditCancelBtn} />):null}
     </>
   )
 }
