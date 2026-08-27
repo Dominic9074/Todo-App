@@ -76,11 +76,15 @@
   transform: translateY(0);
 }
 
+.overdue-task {
+  background-color: #f88b87 !important;
+}
+
 /* Card Container */
 .task-item {
   width: 200px;
   min-height: 140px;
-  background-color: #bbf246; /* Matching lime green */
+  background-color: #BEF367; /* Matching lime green */
   border-radius: 20px;
   padding: 16px;
   display: flex;

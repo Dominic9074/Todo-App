@@ -21,14 +21,18 @@ function TaskForm({addTask}:TaskFormProps){
            return;
         }
         addTask(title,deadline)
+        setTitle('');
+        setDeadline('')
     }
 
     return (
         <div className="taskform">
         <input  type="text"  className="taskform__input"  placeholder="What needs to be done?" 
-        onChange={(e)=>setTitle(e.target.value)}/>
+        onChange={(e)=>setTitle(e.target.value)} value={title}/>
         <input 
-            type="date" className="taskform__date" onChange={(e) => setDeadline(e.target.value)} min={new Date().toISOString().split('T')[0]}
+            type="date" className="taskform__date" onChange={(e) => 
+                setDeadline(e.target.value)} min={new Date().toISOString().split('T')[0]}
+                value={deadline}
         />
         <button type="button" className="taskform__btn" onClick={handleAddBtn}>
             Add

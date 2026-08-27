@@ -6,6 +6,7 @@ import TaskList from './components/todo/taskList.tsx';
 import type{ TaskInterface } from './types/task.interface.ts';
 import { useState,useEffect } from 'react';
 import {Toaster} from 'react-hot-toast'
+import toast from 'react-hot-toast';
 
 
 function App() {
@@ -20,17 +21,18 @@ function App() {
   const [editTask,setEditTask]=useState<TaskInterface | null>(null)
 
   function addTask(title:string,deadline:string){
+    const isCompleted=false
     console.log('task added',{title,deadline})
-    setTask((prevTask)=>[...prevTask,{id:crypto.randomUUID(),title,deadline}])
+    setTask((prevTask)=>[...prevTask,{id:crypto.randomUUID(),title,deadline,isCompleted}])
   }
 
   function deleteTask(taskId:string){
     setTask((prevTask)=>prevTask.filter((task)=>task.id!==taskId))
   }
 
-  function EditTaskBtn({id,title,deadline}:TaskInterface){
+  function EditTaskBtn({id,title,deadline,isCompleted}:TaskInterface){
     setIsEditable(true);
-    setEditTask({id,title,deadline})
+    setEditTask({id,title,deadline,isCompleted})
   }
 
   function EditCancelBtn(){
@@ -45,9 +47,30 @@ function App() {
     setIsEditable(false)
   }
 
+  function TaskCheckbox(taskId: string) {
+    setTask((prev) =>
+      prev.map((task) =>
+        task.id === taskId
+          ? { ...task, isCompleted: !task.isCompleted }: task
+      )
+    );
+  }
+
   useEffect(()=>{
     localStorage.setItem('tasks',JSON.stringify(task))
   },[task])
+
+ useEffect(() => {
+    const today = new Date().toISOString().split('T')[0];
+
+    task.forEach((item) => {
+      if (!item.isCompleted && item.deadline < today) {
+        toast.error(`Task "${item.title}" is overdue!`, {
+          id: `overdue-${item.id}`,
+        });
+      }
+    });
+  }, []);
 
   return(
     <>
@@ -65,7 +88,7 @@ function App() {
       <h2 className='MainHeading share-tech-regular' >TODO APP</h2>
       <TaskForm addTask={addTask} />
       <div className='TaskLists'>
-        <TaskList tasks={task} deleteTask={deleteTask} EditTaskBtn={EditTaskBtn}/>
+        <TaskList tasks={task} deleteTask={deleteTask} EditTaskBtn={EditTaskBtn} TaskCheckbox={TaskCheckbox} />
       </div>
       {isEditable?(<EditTaskModel EditTask={editTask} EditCancelBtn={EditCancelBtn} UpdateTask={UpdateTask} />):null}
     </>
