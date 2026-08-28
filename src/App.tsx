@@ -56,6 +56,8 @@ function App() {
     );
   }
 
+  
+
   useEffect(()=>{
     localStorage.setItem('tasks',JSON.stringify(task))
   },[task])
@@ -90,7 +92,7 @@ function App() {
       <div className='TaskLists'>
         <TaskList tasks={task} deleteTask={deleteTask} EditTaskBtn={EditTaskBtn} TaskCheckbox={TaskCheckbox} />
       </div>
-      {isEditable?(<EditTaskModel EditTask={editTask} EditCancelBtn={EditCancelBtn} UpdateTask={UpdateTask} />):null}
+      {isEditable?(<EditTaskModel EditTask={editTask!} EditCancelBtn={EditCancelBtn} UpdateTask={UpdateTask} />):null}
     </>
   )
 }
