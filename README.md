@@ -1,75 +1,69 @@
-# React + TypeScript + Vite
+# Todo Task Management App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern Todo Task Management application built with **React, TypeScript, and Vite**. This project focuses on building a clean, reusable component-based UI while practicing important React concepts such as state management, props, hooks, CRUD operations, and browser storage.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Add new tasks with a title and deadline
+- Validate task input before adding
+- Prevent selecting past dates
+- Edit existing tasks
+- Delete tasks
+- Mark tasks as completed
+- Strike through completed tasks
+- Detect overdue tasks
+- Highlight overdue tasks with a different UI
+- Hide the completion checkbox for overdue tasks
+- Toast notifications for validation and overdue tasks
+- Persist tasks using `localStorage`
+- Restore tasks after page refresh
+- Responsive task-card layout using CSS Flexbox
+- Reusable React components
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- React
+- TypeScript
+- Vite
+- CSS
+- React Hooks
+- Local Storage
+- React Toastify
 
-## Expanding the ESLint configuration
+## React Concepts Practiced
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+This project was built while practicing:
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- Components and component composition
+- Props and one-way data flow
+- Passing functions through props
+- State management with `useState`
+- Side effects with `useEffect`
+- `useRef`
+- Conditional rendering
+- State immutability
+- State batching
+- Lifting state up
+- Controlled form components
+- List rendering and `key` props
+- CRUD operations
+- Client-side state persistence
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## Project Structure
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
-```
-
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
-```
+```text
+src/
+├── components/
+│   ├── background/
+│   │   └── DotGrid.tsx
+│   └── todo/
+│       ├── taskForm.tsx
+│       ├── taskItem.tsx
+│       ├── taskList.tsx
+│       ├── EditTaskModel.tsx
+│       └── ...
+├── types/
+│   └── task.interface.ts
+├── App.tsx
+├── App.css
+└── main.tsx
